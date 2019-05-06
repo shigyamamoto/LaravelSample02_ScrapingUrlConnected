@@ -23,12 +23,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scraping:some')
-            ->everyMinute()
-            ->withoutOverlapping();
-        $schedule->command('scraping:404check')
-            ->everyMinute()
-            ->withoutOverlapping();
+//         $schedule->command('scraping:some')
+//             ->everyMinute()
+//             ->withoutOverlapping();
+//         $schedule->command('scraping:404check')
+//             ->everyMinute()
+//             ->withoutOverlapping();
 
     }
 
