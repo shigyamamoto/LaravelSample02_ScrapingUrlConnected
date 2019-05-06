@@ -16,6 +16,9 @@ class CreateUrlsTable extends Migration
                 ->nullable()
                 ->useCurrent()
                 ->comment('チェックされた直近のタイムスタンプ');
+            $table->boolean('active')
+                ->default(true)
+                ->comment('アクティブフラグ');
             $table->timestamps();
         });
     }

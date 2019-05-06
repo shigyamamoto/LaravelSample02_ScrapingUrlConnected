@@ -46,16 +46,10 @@ class ScrapingService
             return;
         }
 
-        // データが取得できないものは、404エラーと判断し処理しない
-        // $contents = @file_get_contents($url, NULL, NULL, 1, 1);
-        // if (! $contents) {
-        // return;
-        // }
-
         // 登録
         $cu = new CollectedUrl();
         $cu->url = $url;
-        $cu->exist = true;
+        $cu->exist = false;
         $cu->checked_at = null;
         $cu->save();
     }
@@ -70,6 +64,7 @@ class ScrapingService
     {
         // checked_at が nullのものが優先して取得される
         $urls_null = CollectedUrl::where('checked_at', null)->where('exist', true)
+            ->where('active', true)
             ->take($number)
             ->get();
         $count = count($urls_null);
@@ -79,6 +74,7 @@ class ScrapingService
 
         // 上記が指定個数まで到達しなかった場合には、checked_at が 古い順に取得対象とする
         $urls_old = CollectedUrl::whereNotNull('checked_at')->where('exist', true)
+            ->where('active', true)
             ->orderBy('checked_at', 'asc')
             ->take($number - $count)
             ->get();
